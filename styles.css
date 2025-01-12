@@ -1,0 +1,24 @@
+body {
+    background-color: white;
+    color: black;
+}
+
+body.dark-mode {
+    background-color: black;
+    color: white;
+}
+
+button {
+    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#anime-container {
+    text-align: center;
+}
+
+#anime-details img {
+    max-width: 100%;
+    height: auto;
+}

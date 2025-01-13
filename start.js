@@ -106,54 +106,53 @@ const animuids = [
 
 
 
-console.log(animuids.length);
-  
+        console.log(animuids.length);
 
-async function fetchAnimeInfo() {
-    const loadingElement = document.getElementById('loading');
-    const animeDetails = document.getElementById('anime-details');
-    loadingElement.style.display = 'block';
-    animeDetails.innerHTML = '';
-
-    try {
-        let anime;
-        let randomAnimeId;
-        let url;
-
-        do {
-            randomAnimeId = animuids[Math.floor(Math.random() * animuids.length)]; 
-            url = `https://api.jikan.moe/v4/anime/${randomAnimeId}`;
-            const response = await fetch(url);
-            if (!response.ok) {
-                console.error(`HTTP error! status: ${response.status}`);
-                continue;
+        async function fetchAnimeInfo() {
+            const loadingElement = document.getElementById('loading');
+            const animeDetails = document.getElementById('anime-details');
+            loadingElement.style.display = 'block';
+            animeDetails.innerHTML = '';
+        
+            try {
+                let anime;
+                let randomAnimeId;
+                let url;
+        
+                do {
+                    randomAnimeId = animuids[Math.floor(Math.random() * animuids.length)];
+                    url = `https://api.jikan.moe/v4/anime/${randomAnimeId}`;
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        console.error(`HTTP error! status: ${response.status}`);
+                        continue;
+                    }
+                    const data = await response.json();
+                    anime = data.data;
+                    console.log(`Fetched anime ID: ${randomAnimeId}, Score: ${anime ? anime.score : 'N/A'}, Type: ${anime ? anime.type : 'N/A'}`);
+                } while (!anime || anime.score <= 6 || anime.type === 'ONA' || anime.genres.some(genre => genre.name === 'Music' || genre.name === 'Ecchi'||genre.name === 'Hentai'));
+        
+                if (anime) {
+                    animeDetails.innerHTML = `
+                        <h2>${anime.title}</h2>
+                        <img src="${anime.images.jpg.image_url}" alt="${anime.title}" class="anime-image">
+                        <div class="anime-details">
+                            <p><strong>Episodes:</strong> ${anime.episodes}</p>
+                            <p><strong>Score:</strong> ${anime.score}</p>
+                            <p><strong>Synopsis:</strong> ${anime.synopsis}</p>
+                            ${anime.trailer && anime.trailer.url ? `<p><a href="${anime.trailer.url}" target="_blank" class="trailer-link">Trailer here!</a></p>` : ''}
+                        </div>
+                    `;
+                } else {
+                    console.error('No anime found :(');
+                }
+            } catch (error) {
+                console.error('Error fetching anime info:', error);
+            } finally {
+                loadingElement.style.display = 'none';
             }
-            const data = await response.json();
-            anime = data.data;
-            console.log(`Fetched anime ID: ${randomAnimeId}, Score: ${anime ? anime.score : 'N/A'}`);
-        } while (!anime);
-
-        if (anime) {
-            animeDetails.innerHTML = `
-                <h2>${anime.title}</h2>
-                <img src="${anime.images.jpg.image_url}" alt="${anime.title}" class="anime-image">
-                <div class="anime-details">
-                    <p><strong>Episodes:</strong> ${anime.episodes}</p>
-                    <p><strong>Score:</strong> ${anime.score}</p>
-                    <p><strong>Synopsis:</strong> ${anime.synopsis}</p>
-                    ${anime.trailer && anime.trailer.url ? `<p><a href="${anime.trailer.url}" target="_blank" class="trailer-link">Watch Trailer</a></p>` : ''}
-                </div>
-            `;
-        } else {
-            console.error('No anime found');
         }
-    } catch (error) {
-        console.error('Error fetching anime info:', error);
-    } finally {
-        loadingElement.style.display = 'none';
-    }
-}
-
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-}
+        
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }

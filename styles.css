@@ -50,7 +50,7 @@ button:hover {
 
 .anime-image {
     display: block;
-    max-width: 80%; /* Adjusted to make the image bigger */
+    max-width: 80%; 
     height: auto;
     border-radius: 10px;
     margin: 0 auto 20px;

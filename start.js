@@ -1,14 +1,51 @@
+const animuids = [
+    52991, 5114, 60022, 9253, 38524, 28977, 39486, 9969, 11061, 15417, 820, 41467, 43608, 34096, 42938, 4181, 918, 28851, 
+    35180, 2904, 15335, 54492, 37491, 19, 51535, 35247, 37987, 58567, 40682, 32281, 49387, 36838, 37510, 31758, 40028, 
+    58514, 55690, 32935, 263, 199, 51009, 17074, 47917, 37521, 48583, 56784, 52198, 1, 55255, 2921, 45649, 55016, 50160, 
+    44074, 21, 47778, 53223, 39894, 24701, 57864, 56752, 50172, 48569, 54857, 53998, 33095, 1575, 44, 58125, 21939, 33352, 
+    245, 40434, 5258, 431, 50399, 164, 33050, 45576, 46102, 457, 34599, 11665, 49413, 23273, 54898, 2001, 35760, 52742, 
+    40591, 22135, 1535, 28891, 41084, 57334, 52701, 34591, 42310, 19647, 36862, 55791, 52034, 33, 55823, 4565, 38329, 7311, 
+    3786, 37991, 28957, 10379, 49701, 40748, 32983, 31757, 12355, 877, 40456, 28735, 36098, 16498, 7785, 437, 170, 40776, 
+    32, 30484, 11741, 40417, 53273, 21329, 5300, 56538, 25777, 35843, 7472, 40664, 578, 12365, 38474, 35839, 4282, 801, 
+    205, 31933, 44070, 40834, 11981, 32182, 30276, 37779, 12431, 30654, 3297, 50265, 33049, 44511, 47194, 10165, 35737, 
+    38450, 37208, 36649, 6114, 44087, 392, 37379, 57647, 31181, 11577, 36999, 26055, 37105, 49722, 51039, 38000, 20583, 
+    55888, 24687, 42203, 50330, 40059, 36538, 38889, 21899, 48561, 40730, 2246, 467, 36885, 38040, 136, 45556, 33255, 
+    34612, 25781, 39741, 53236, 36275, 30709, 37999, 55102, 35851, 4921, 35557, 5028, 46095, 50183, 49721, 38475, 37515, 
+    37965, 40787, 49310, 14397, 32366, 5, 5205, 5941, 31646, 11979, 9756, 38883, 22789, 53540, 9260, 6945, 39808, 49458, 
+    39535, 39551, 56523, 52215, 9617, 39167, 39547, 572, 2251, 185, 777, 49926, 30, 53672, 41025, 46654, 338, 50407, 
+    10030, 37095, 55644, 10937, 39587, 31988, 22535, 13601, 10162, 48653, 37822, 20651, 56524, 54595, 12029, 28701, 5040, 
+    42984, 2402, 5081, 41457, 42886, 54870, 51805, 34534, 39112, 7655, 2559, 34240, 137, 41487, 1210, 57181, 52588, 51440, 
+    17389, 5420, 5341, 40211, 4081, 30230, 3784, 6594, 31043, 39533, 60108, 60108, 10863, 24415, 22507, 49571, 12531, 
+    1365, 57, 9989, 57616, 11917, 36371, 6675, 30346, 759, 486, 9735, 45, 43325, 59571, 59571, 52299, 38731, 19363, 34798, 
+    25835, 48316, 10534, 38691, 50594, 10087, 43, 1735, 10408, 38826, 32188, 23327, 3002, 2685, 513, 264, 2150, 53111, 
+    37520, 13125, 2418, 44940, 1698, 32937, 523, 49918, 31812, 329, 139, 55357, 52578, 37989, 35111, 10271, 36990, 44412, 
+    1033, 265, 34036, 51179, 37055, 25681, 28805, 33051, 11843, 37450, 40784, 512, 50602, 39247, 45577, 31240, 57067, 
+    55866, 54959, 52684, 35677, 15227, 5690, 11977, 585, 440, 6, 35838, 55809, 53393, 12115, 2966, 627, 49596, 38680, 
+    1842, 18115, 16664, 372, 58572, 53127, 37078, 38003, 5460, 38249, 23847, 6811, 35466, 16894, 3091, 40052, 9863, 51019, 
+    42897, 44055, 54029, 37171, 40435, 1453, 47794, 19123, 32843, 813, 36946, 38234, 49114, 55655, 35110, 34537, 18617, 
+    10800, 22297, 32005, 40729, 40853, 3226, 6864, 1142, 558, 49590, 186, 138, 23623, 34636, 57524, 36370, 7791, 32867, 
+    33674, 37514, 39166, 18195, 7674, 38088, 1519, 40911, 49052, 49909, 18, 235, 232, 54856, 33323, 4107, 44042, 962, 853, 
+    1889, 49574, 42894, 40852, 47, 48736, 57592, 38481, 1430, 25537, 48549, 49521, 50612, 50709, 59841, 56738, 53888, 
+    9890, 28675, 3701, 41361, 30503, 28223, 50325, 34572, 37430, 60048, 31715, 37962, 39592, 39792, 4477, 3371, 35857, 
+    731, 721, 11597, 28171, 49053];
+
+console.log(animuids.length);
+  
+
 async function fetchAnimeInfo() {
+    const loadingElement = document.getElementById('loading');
+    const animeDetails = document.getElementById('anime-details');
+    loadingElement.style.display = 'block';
+    animeDetails.innerHTML = '';
+
     try {
         let anime;
         let randomAnimeId;
         let url;
-        const threeYearsAgo = new Date();
-        threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3);
 
         do {
-            randomAnimeId = Math.floor(Math.random() * 9000) + 45000; // Random ID between 45000 and 54000
-            url = `https://api.jikan.moe/v4/anime/${randomAnimeId}?released_at=${threeYearsAgo.toISOString()}`;
+            randomAnimeId = animuids[Math.floor(Math.random() * animuids.length)]; 
+            url = `https://api.jikan.moe/v4/anime/${randomAnimeId}`;
             const response = await fetch(url);
             if (!response.ok) {
                 console.error(`HTTP error! status: ${response.status}`);
@@ -17,25 +54,30 @@ async function fetchAnimeInfo() {
             const data = await response.json();
             anime = data.data;
             console.log(`Fetched anime ID: ${randomAnimeId}, Score: ${anime ? anime.score : 'N/A'}`);
-        } while (anime && anime.score <= 6.8);
+        } while (!anime);
 
         if (anime) {
-            const animeDetails = document.getElementById('anime-details');
             animeDetails.innerHTML = `
                 <h2>${anime.title}</h2>
-                <img src="${anime.images.jpg.image_url}" alt="${anime.title}">
-                <p><strong>Episodes:</strong> ${anime.episodes}</p>
-                <p><strong>Score:</strong> ${anime.score}</p>
-                <p><strong>Synopsis:</strong> ${anime.synopsis}</p>
+                <img src="${anime.images.jpg.image_url}" alt="${anime.title}" class="anime-image">
+                <div class="anime-details">
+                    <p><strong>Episodes:</strong> ${anime.episodes}</p>
+                    <p><strong>Score:</strong> ${anime.score}</p>
+                    <p><strong>Synopsis:</strong> ${anime.synopsis}</p>
+                    ${anime.trailer && anime.trailer.url ? `<p><a href="${anime.trailer.url}" target="_blank" class="trailer-link">Watch Trailer</a></p>` : ''}
+                </div>
             `;
         } else {
-            console.error('No anime found with a score above 7');
+            console.error('No anime found');
         }
     } catch (error) {
         console.error('Error fetching anime info:', error);
+    } finally {
+        loadingElement.style.display = 'none';
     }
 }
 
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
 }
+

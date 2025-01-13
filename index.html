@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Info</title>
+    <title> Randome Anime Generator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button id="dm" onclick="toggleDarkMode()">Dark Mode</button>
+    <header>
+        <h1>Random Anime</h1>
+        <button onclick="fetchAnimeInfo()">Click here!</button>
+        <button id="dm" onclick="toggleDarkMode()">Dark Mode</button>
+        
+    </header>
     <div id="anime-container">
-        <h1>Anime which you defintely dont know</h1>
-        <button onclick="fetchAnimeInfo()">Button of Hell</button>
+        <div id="loading" style="display: none;">Chotto Matte</div>
         <div id="anime-details"></div>
     </div>
     <script src="start.js"></script>
